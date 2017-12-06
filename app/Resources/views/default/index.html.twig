@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <ul>
+            <li><a href="accueil">Accueil</a></li>
+            <li><a href="inscription">Inscription</a></li>
+        </ul>
+        <div id="container">
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+
+                <div class="col-lg-10">
+                    <h2>Bienvenue dans le projet de Galerie !</h2>
+                    <button class="btn btn-primary">Test</button>
+                </div>
+            </div>
+
+        </div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body { background: #F5F5F5; font: 18px/1.5 sans-serif;}
+    a { color: #0000F0; }
+    a:hover { text-decoration: none; }
+    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+    }
+
+    li a:hover{
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
