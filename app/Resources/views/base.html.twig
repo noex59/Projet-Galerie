@@ -3,13 +3,83 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Projet Galerie !{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('style.css')}}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <ul>
+            <li><a href="accueil">Accueil</a></li>
+            <li><a href="register">Inscription</a></li>
+
+            <div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <form action="/galerie/web/login_check" method="post">
+                            <span>
+                                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                </a>
+                            </span>
+                    </form>
+                {% else %}
+                    <form action="/galerie/web/login_check" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{csrf_token}}">
+                        <input type="text" id="username" name="_username" class="form-control" required="required">
+                        <input type="password" id="password" name="_password" class="form-control" required="required">
+                        <input type="submit" class="btn btn-primary" value="Connexion">
+                    </form>
+                {% endif %}
+            </div>
+        </ul>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
+
+{% block stylesheets %}
+    <style>
+        body { background: #F5F5F5; font: 18px/1.5 sans-serif;}
+        a { color: #0000F0; }
+        a:hover { text-decoration: none; }
+        code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+
+        span{
+            color:white;
+        }
+
+        ul div form{
+            display: flex;
+            float: right;
+        }
+
+        input[type="text"], input[type="password"]{
+            width: 250px !important;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+        }
+
+        li a:hover{
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}

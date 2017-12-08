@@ -77,3 +77,6 @@ fos_user:
     from_email:
         address: test@test.fr
         sender_name: Noex59
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType

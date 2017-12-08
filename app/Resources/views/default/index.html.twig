@@ -1,17 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-        <ul>
-            <li><a href="accueil">Accueil</a></li>
-            <li><a href="register">Inscription</a></li>
-
-            <form action="/galerie/web/login_check" method="post">
-                <input type="hidden" name="_csrf_token" value="ry82nu-onZ5jMKzc4ybVLAoeVywYo-QMUgBmh7QaViU">
-                <input type="text" id="username" name="_username" class="form-control" required="required">
-                <input type="password" id="password" name="_password" class="form-control" required="required">
-                <input type="submit" class="btn btn-primary" value="Connexion">
-            </form>
-        </ul>
         <div id="container">
             <div class="row">
                 <div class="col-lg-2">
@@ -27,42 +16,5 @@
 {% endblock %}
 
 {% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif;}
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-
-    form{
-        display: flex;
-        float: right;
-    }
-
-    input[type="text"], input[type="password"]{
-        width: 250px !important;
-    }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-    }
-
-    li a:hover{
-        text-decoration: none;
-    }
-</style>
+    {{ parent() }}
 {% endblock %}
