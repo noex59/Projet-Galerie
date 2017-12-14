@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -21,8 +22,18 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank(message="Entrez un nom d'utitlisateur svp.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=1,
+     *     max=3,
+     *     minMessage="Age trop court.",
+     *     maxMessage="Age trop long.",
+     *     groups={"Registration", "Profile"}
+     * )
      */
     protected $age;
+
 
     public function __construct()
     {

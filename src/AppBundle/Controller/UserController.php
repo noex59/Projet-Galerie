@@ -5,11 +5,12 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
-class DefaultController extends Controller
+class UserController extends Controller
 {
     /**
-     * @Route("/", name="get")
+     * @Route("/get", name="getUser")
      */
     public function indexAction(Request $request)
     {
@@ -17,21 +18,12 @@ class DefaultController extends Controller
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        /*$em = $this->getDoctrine()->getManager();
-        var_dump($em->getRepository("AppBundle:User")->find(1));*/
+
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'csrf_token' => $csrfToken,
-            //'users' => $users,
+            //'users' => serialize($users),
         ]);
-    }
-
-    /**
-     * @Route("/register", name="insc")
-     */
-    public function inscriptionAction(Request $request)
-    {
-        return new Response("test");
     }
 }

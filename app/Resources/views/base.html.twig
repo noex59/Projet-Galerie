@@ -11,8 +11,8 @@
     </head>
     <body>
         <ul>
-            <li><a href="accueil">Accueil</a></li>
-            <li><a href="register">Inscription</a></li>
+            <li><a href="http://localhost/galerie/web">Accueil</a></li>
+            <li><a href="http://localhost/galerie/web/register">Inscription</a></li>
 
             <div>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -45,6 +45,10 @@
         a { color: #0000F0; }
         a:hover { text-decoration: none; }
         code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+
+        div[id="fos_user_registration_form"] ul li{
+            color: red;
+        }
 
         span{
             color:white;
