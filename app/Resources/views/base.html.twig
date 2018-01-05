@@ -14,10 +14,9 @@
         <ul>
             <li><a href="http://localhost/galerie/web">Accueil</a></li>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="http://localhost/galerie/web/admin">Ma Gallery</a></li>
                 {% if is_granted("ROLE_ADMIN") %}
                     <li><a href="http://localhost/galerie/web/admin">Admin</a></li>
-                {% else %}
-                    <li><a href="http://localhost/galerie/web/admin">Ma Gallery</a></li>
                 {% endif %}
             {% else %}
                 <li><a href="http://localhost/galerie/web/register">Inscription</a></li>
@@ -26,9 +25,9 @@
             <div>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <form action="/galerie/web/login_check" method="post">
-                                <a href="{{ path('fos_user_security_logout') }}" class='btn btn-info btn-lg'>
-                                    <span class="glyphicon glyphicon-log-out"></span> Deconnexion
-                                </a>
+                        <a href="{{ path('fos_user_security_logout') }}" class='btn btn-info btn-lg'>
+                            <span class="glyphicon glyphicon-log-out"></span> Deconnexion
+                        </a>
                     </form>
                 {% else %}
                     <form action="/galerie/web/login_check" method="post">

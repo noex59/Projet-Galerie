@@ -36,7 +36,7 @@ class DefaultController extends Controller
             : null;
 
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository("AppBundle:User")->findFiveUser();
+        $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
         $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser(1); // TODO : mettre num aleat
 
         $username = null;
@@ -90,7 +90,7 @@ class DefaultController extends Controller
             : null;
 
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository("AppBundle:User")->findFiveUser();
+        $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
         $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser(1);
 
         $username = null;
@@ -121,7 +121,7 @@ class DefaultController extends Controller
             : null;
 
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository("AppBundle:User")->findFiveUser();
+        $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
         $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser($idUser); // TODO : mettre num aleat
 
         $username = null;
