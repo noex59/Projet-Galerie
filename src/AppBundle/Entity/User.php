@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity (repositoryClass="AppBundle\Entity\UserRepository")
  * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser
@@ -17,6 +17,9 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ORM\ManyToOne(targetEntity="Picture", inversedBy="idUser")
+     * @ORM\JoinColumn(name="id", referencedColumnName="idUser")
      */
     protected $id;
 
@@ -29,7 +32,6 @@ class User extends BaseUser
      *     max=3,
      *     minMessage="Age trop court.",
      *     maxMessage="Age trop long.",
-     *     groups={"Registration", "Profile"}
      * )
      */
     protected $age;

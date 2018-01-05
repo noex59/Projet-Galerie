@@ -5,16 +5,52 @@
             <div class="row">
                 <div class="col-lg-2">
                     <h6>Galeries de nos membres :</h6>
+                    <ul class="vertical">
+                    {% for user in users %}
+                        <li><a href="{{path("showGalery", {'idUser':user.id})}}">{{ user.username }}</a></li>
+                    {% endfor %}
+                    </ul>
                 </div>
 
                 <div class="col-lg-10">
-                    <h2>Bienvenue dans le projet de Galerie !</h2>
+                        <h2>Bienvenue dans le projet de Galerie !</h2>
+                        {% if username != "" %}
+                            <h4>Voici la galerie de {{username}}</h4>
+                        {% else %}
+                            <h4>La galerie n'est pas dispo :(</h4>
+                        {% endif %}
+                    <div class="container">
+                        <div class="row">
+                        
+                            <table class="pagination-centered">
+                                <tr>
+                                {% for obj in photos %}
+                                    {% if loop.index0 % 4 == 0 %}
+                                        </tr>
+                                        <tr>
+                                    {% endif %}
+
+                                    <td><img src="{{obj.url}}" alt="Smiley face" height="150" width="150"></td>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
+    <style>
+
+    table{
+        border-collapse: collapse;
+    }
+
+    td{
+        border: 1px solid black;
+    }
+
+    </style>
 {% endblock %}

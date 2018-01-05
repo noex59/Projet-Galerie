@@ -18,12 +18,9 @@ class UserController extends Controller
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-
-
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'csrf_token' => $csrfToken,
-            //'users' => serialize($users),
         ]);
     }
 }
