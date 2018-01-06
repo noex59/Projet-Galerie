@@ -16,9 +16,9 @@
                         <td>{{result.username}}</td>
                         <td>{{result.email}}</td>
                         <td>
-                            <a href="" class='glyphicon glyphicon-trash'></a> 
+                            <a href="{{ path('delete',{'id': result.id}) }}" class='glyphicon glyphicon-trash'></a> 
                             {% if result.enabled == 0 %}
-                                <a href="" class='glyphicon glyphicon-ok-circle'></a> 
+                                <a href="{{ path('update',{'id': result.id}) }}" class='glyphicon glyphicon-ok-circle'></a> 
                             {% endif %}
                         </td>
                     </tr>
@@ -26,6 +26,12 @@
             </tbody>
         </table>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+    </script>
 {% endblock %}
 
 {% block stylesheets %}

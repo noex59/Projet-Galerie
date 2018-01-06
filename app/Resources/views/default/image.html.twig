@@ -13,12 +13,7 @@
             </div>
 
             <div class="col-lg-10">
-                <h2>Bienvenue dans le projet de Galerie !</h2>
-                {% if username != "" %}
-                    <h4>Voici la galerie de {{username}}</h4>
-                {% else %}
-                    <h4>La galerie n'est pas dispo :(</h4>
-                {% endif %}
+                <h2>Votre Galerie :</h2>
                 <div class="container">
                     <div class="row">
                     
@@ -30,7 +25,7 @@
                                     <tr>
                                 {% endif %}
 
-                                <td><img src="{{obj.url}}" alt="Smiley face" height="150" width="150"></td>
+                                <td><img src="{{obj.url}}" alt="Not Available :(" height="150" width="150"></td>
                             {% endfor %}
                         </table>
                     </div>

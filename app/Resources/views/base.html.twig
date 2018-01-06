@@ -14,7 +14,7 @@
         <ul>
             <li><a href="http://localhost/galerie/web">Accueil</a></li>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <li><a href="http://localhost/galerie/web/admin">Ma Gallery</a></li>
+                <li><a href="{{path('showGaleryPerso', {'idUser': id})}}">Ma Gallery</a></li>
                 {% if is_granted("ROLE_ADMIN") %}
                     <li><a href="http://localhost/galerie/web/admin">Admin</a></li>
                 {% endif %}

@@ -44,4 +44,39 @@ class AdminController extends Controller
             'list' => $listUser,
         ]);
     }
+
+    /**
+     * @Route("/admin/del/{id}", name="delete")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if(!$user)
+            return $this->redirectToRoute("admin");
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute("admin");
+    }
+
+    /**
+     * @Route("/admin/upd/{id}", name="update")
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if(!$user)
+            return $this->redirectToRoute("admin");
+
+        $user->setEnabled(1);
+
+        $em->flush();
+
+        return $this->redirectToRoute("admin");
+    }
 }

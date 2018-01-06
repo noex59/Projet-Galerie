@@ -48,12 +48,20 @@ class DefaultController extends Controller
             }
         }
 
+        $token = $this->get('security.token_storage')->getToken();
+        $user = $token->getUser();
+
+        $user == "anon." ? $id = null : $id = $user->getId();
+
+        var_dump($id);
+
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'csrf_token' => $csrfToken,
             'users' => $users,
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
+            'id' => $id,
         ]);
     }
 
@@ -101,6 +109,8 @@ class DefaultController extends Controller
                     $username = $val["username"];
             }
         }
+
+
 
         return $this->renderLogin(array(
             'error' => $error,
