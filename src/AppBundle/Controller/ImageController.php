@@ -27,14 +27,6 @@ use Gregwar\CaptchaBundle\Type\CaptchaType;
 class ImageController extends Controller
 {
     /**
-     * @Route("/", name="imgPage")
-     */
-    public function indexAction(Request $request)
-    {
-
-    }
-
-    /**
      * @Route("/mygalery/{idUser}", name="showGaleryPerso")
      */
     public function affGaleryAction(Request $request,  $idUser)

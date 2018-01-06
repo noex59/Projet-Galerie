@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
     <div id="container">
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2 menu">
                 <h6>Galeries de nos membres :</h6>
                 <ul class="vertical">
                 {% for user in users %}
@@ -38,6 +39,11 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+
+    .menu{
+        background-color: #DCDCDC;
+        height : 100vh;
+    }
 
     table{
         border-collapse: collapse;

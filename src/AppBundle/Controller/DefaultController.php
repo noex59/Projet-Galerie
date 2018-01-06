@@ -53,8 +53,6 @@ class DefaultController extends Controller
 
         $user == "anon." ? $id = null : $id = $user->getId();
 
-        var_dump($id);
-
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'csrf_token' => $csrfToken,
@@ -93,32 +91,7 @@ class DefaultController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
 
-        $csrfToken = $this->has('security.csrf.token_manager')
-            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
-            : null;
-
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
-        $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser(1);
-
-        $username = null;
-
-        if ($pictures != null) {
-            foreach ($users as $val) {
-                if($val["id"] == $pictures[0]["idUser"])
-                    $username = $val["username"];
-            }
-        }
-
-
-
-        return $this->renderLogin(array(
-            'error' => $error,
-            'csrf_token' => $csrfToken,
-            'users' => $users,
-            'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
-            'username' => $username != null ? $username : "",
-        ));
+        return $this->redirectToRoute("get");
     }
 
     /**
@@ -143,12 +116,18 @@ class DefaultController extends Controller
             }
         }
 
+        $token = $this->get('security.token_storage')->getToken();
+        $user = $token->getUser();
+
+        $user == "anon." ? $id = null : $id = $user->getId();
+
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'csrf_token' => $csrfToken,
             'users' => $users,
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
+            'id' => $id,
         ]);
     }
 

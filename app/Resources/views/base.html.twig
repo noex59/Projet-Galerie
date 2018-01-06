@@ -51,18 +51,19 @@
         a:hover { text-decoration: none; }
         code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
 
-        .btn{
-            height: auto;
-        }
 
         form.center{
             background-color: red;
         }
 
+        li:hover{
+            background-color: darkgrey;
+        }
+
         ul.vertical{
-            background-color: grey;
             display: flex;
             flex-direction: column;
+            background-color: transparent !important;
         }
 
         div[id="fos_user_registration_form"] ul li{
@@ -103,6 +104,15 @@
 
         li a:hover{
             text-decoration: none;
+        }
+
+        ul.vertical li a {
+            color: #111;
+        }
+
+        .menu{
+            background-color: #DCDCDC;
+            height : 100vh;
         }
     </style>
 {% endblock %}

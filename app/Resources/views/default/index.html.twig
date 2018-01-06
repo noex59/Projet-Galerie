@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="container">
+    <div>
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2 menu">
                 <h6>Galeries de nos membres :</h6>
                 <ul class="vertical">
                 {% for user in users %}
@@ -19,21 +19,18 @@
                 {% else %}
                     <h4>La galerie n'est pas dispo :(</h4>
                 {% endif %}
-                <div class="container">
-                    <div class="row">
-                    
-                        <table class="pagination-centered">
-                            <tr>
-                            {% for obj in photos %}
-                                {% if loop.index0 % 4 == 0 %}
-                                    </tr>
-                                    <tr>
-                                {% endif %}
+                <div class="container">                    
+                    <table>
+                        <tr>
+                        {% for obj in photos %}
+                            {% if loop.index0 % 4 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
 
-                                <td><img src="{{obj.url}}" alt="Smiley face" height="150" width="150"></td>
-                            {% endfor %}
-                        </table>
-                    </div>
+                            <td><img src="{{obj.url}}" alt="Smiley face" height="150" width="150"></td>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
@@ -43,7 +40,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
+    
     table{
         border-collapse: collapse;
     }

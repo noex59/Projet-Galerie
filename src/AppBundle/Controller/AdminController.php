@@ -31,17 +31,17 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $csrfToken = $this->has('security.csrf.token_manager')
-            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
-            : null;
-
         $em = $this->getDoctrine()->getManager();
         $listUser = $em->getRepository("AppBundle:User")->findUsers();
 
+        $token = $this->get('security.token_storage')->getToken();
+        $user = $token->getUser();
+
+        $user == "anon." ? $id = null : $id = $user->getId();
+
         return $this->render('default/admin.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-            'csrf_token' => $csrfToken,
             'list' => $listUser,
+            'id' => $id,
         ]);
     }
 
