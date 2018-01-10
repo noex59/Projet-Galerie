@@ -4,7 +4,7 @@
     <div>
         <div class="row">
             <div class="col-lg-2 menu">
-                <h6>Galeries de nos membres :</h6>
+                <h7>Galeries de nos membres :</h7>
                 <ul class="vertical">
                 {% for user in users %}
                     <li><a href="{{path('showGalery', {'idUser':user.id})}}">{{ user.username }}</a></li>
@@ -13,7 +13,16 @@
             </div>
 
             <div class="col-lg-10">
+                {% if not app.user %}
+                    {% if nbTentatives != 0 %}
+                        <h6>Il vous reste encore {{nbTentatives}} essais</h6>
+                    {% elseif nbTentatives == 0 %}
+                        <h6>Compte bloqué, en attente de modération par l'admin</h6>
+                    {% endif %}
+                {% endif %}
+
                 <h2>Bienvenue dans le projet de Galerie !</h2>
+
                 {% if username != "" %}
                     <h4>Voici la galerie de {{username}}</h4>
                 {% else %}
@@ -50,7 +59,10 @@
     }
 
     h6{
-        font-size: 18px;
+        color: red;
+        font-size: 15px;
+        float: right;
+        margin-right: 18px;
     }
 
     </style>

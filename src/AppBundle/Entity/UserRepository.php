@@ -8,6 +8,14 @@ use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository
 {
+    public function findByAllEmail(){
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->select("u.email");
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function findByNothingUserForMenu(){
         $qb = $this->createQueryBuilder('u');
 
@@ -35,5 +43,15 @@ class UserRepository extends EntityRepository
         ->setParameters(array('id' => $id));
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findByMail($mail){
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->select("u.id")
+        ->where("u.email = :mail")
+        ->setParameters(array('mail' => $mail));
+
+        return $qb->getQuery()->getArrayResult();
     }
 }

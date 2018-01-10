@@ -68,12 +68,14 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
-    encryption: "%mailer_encryption%"
+    #encryption: "%mailer_encryption%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-    port: 465
+    # port: 465
+    #transport: gmail
+
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
@@ -81,8 +83,10 @@ fos_user:
     user_class: AppBundle\Entity\User
     from_email:
         address: fvantours@gmail.com
-        sender_name: François
+        sender_name: François   
     registration:
+        confirmation:
+            enabled: true
         form:
             type: AppBundle\Form\RegistrationType
 

@@ -26,6 +26,7 @@ use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/", name="get")
      */
@@ -50,8 +51,40 @@ class DefaultController extends Controller
 
         $token = $this->get('security.token_storage')->getToken();
         $user = $token->getUser();
-
         $user == "anon." ? $id = null : $id = $user->getId();
+
+
+        $session = new Session();
+        $listEmail = $em->getRepository("AppBundle:User")->findByAllEmail();
+        
+        // RECUPERER EMAIL CURRENT
+        $email = "d@d.fr";//$session->get("_security.last_username");
+               
+        foreach ($listEmail as $value) {
+            if ($email == $value["email"]) {
+                if (!isset($session->get("mailNbTentatives")[$email])) {
+                    $tab = $session->get("mailNbTentatives");
+                    $tab[$email] = 2;
+                    $session->set("mailNbTentatives", $tab);
+                }
+                elseif ($session->get("mailNbTentatives")[$email] - 1 == 0 && isset($session->get("mailNbTentatives")[$email])) {
+                    $session->set("mailNbTentatives", array($email => 0));
+                    $id = $em->getRepository('AppBundle:User')->findByMail($email);
+                    $user = $em->getRepository('AppBundle:User')->find((int)$id[0]["id"]);
+                    $user->setEnabled(0);
+                    $em->flush();
+                }
+                elseif (isset($session->get("mailNbTentatives")[$email]) && $session->get("mailNbTentatives")[$email] > 0){
+                    $tab = $session->get("mailNbTentatives");
+                    $tab[$email] = --$session->get("mailNbTentatives")[$email];
+                    $session->set("mailNbTentatives", $tab);
+                }
+
+                break;
+            }
+            /*else
+                $session->clear();*/
+        }
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
@@ -60,6 +93,7 @@ class DefaultController extends Controller
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
             'id' => $id,
+            'nbTentatives' => $session->get("mailNbTentatives")[$email],
         ]);
     }
 
