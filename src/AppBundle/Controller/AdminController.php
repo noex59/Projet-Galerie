@@ -52,11 +52,18 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')->find($id);
+        $idPicture = $em->getRepository('AppBundle:Picture')->findByIdUserReal($id);
+        if($idPicture != null){
+            $picture = $em->getRepository('AppBundle:Picture')->find($idPicture[0]["id"]);
+            $em->remove($picture);
+        }
 
         if(!$user)
             return $this->redirectToRoute("admin");
 
+        
         $em->remove($user);
+        
         $em->flush();
 
         return $this->redirectToRoute("admin");

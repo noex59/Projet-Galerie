@@ -14,10 +14,12 @@
 
             <div class="col-lg-10">
                 {% if not app.user %}
-                    {% if nbTentatives != 0 %}
+                    {% if nbTentatives != 0 and nbTentatives <= 2 %}
                         <h6>Il vous reste encore {{nbTentatives}} essais</h6>
                     {% elseif nbTentatives == 0 %}
                         <h6>Compte bloqué, en attente de modération par l'admin</h6>
+                    {% elseif affMess %}
+                        <h6>Email invalide</h6>
                     {% endif %}
                 {% endif %}
 

@@ -67,13 +67,13 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
+    #transport: "%mailer_transport%"
     #encryption: "%mailer_encryption%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
-    # port: 465
+    #host:      "%mailer_host%"
+    #username:  "%mailer_user%"
+    #password:  "%mailer_password%"
+    #spool:     { type: memory }
+    #port: 587
     #transport: gmail
 
 
@@ -85,8 +85,8 @@ fos_user:
         address: fvantours@gmail.com
         sender_name: François   
     registration:
-        confirmation:
-            enabled: true
+        #confirmation:
+           # enabled: true
         form:
             type: AppBundle\Form\RegistrationType
 

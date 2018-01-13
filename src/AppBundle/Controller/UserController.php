@@ -9,6 +9,8 @@ use AppBundle\Entity\User;
 
 class UserController extends Controller
 {
+
+
     /**
      * @Route("/get", name="getUser")
      */

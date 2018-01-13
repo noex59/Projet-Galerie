@@ -25,4 +25,15 @@ class PictureRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByIdUserReal($id){
+		$qb = $this->createQueryBuilder('p');
+
+		$qb->select('p.id')
+		   ->where('p.idUser = :id')
+		   ->setParameters(array('id' => $id));
+
+
+        return $qb->getQuery()->getResult();
+    }
 }

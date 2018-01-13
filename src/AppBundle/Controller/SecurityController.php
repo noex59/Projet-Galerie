@@ -21,6 +21,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class SecurityController extends Controller
 {
+
+
+    public function __construct(){
+        die('lol');
+    }
+    
     /**
      * @param Request $request
      *
@@ -55,7 +61,7 @@ class SecurityController extends Controller
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        var_dump($lastUsername);
+        dump($lastUsername);die();
 
         return $this->renderLogin(array(
             'last_username' => $lastUsername,

@@ -32,6 +32,9 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+
+
         $csrfToken = $this->has('security.csrf.token_manager')
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
@@ -55,10 +58,12 @@ class DefaultController extends Controller
 
 
         $session = new Session();
+
         $listEmail = $em->getRepository("AppBundle:User")->findByAllEmail();
         
         // RECUPERER EMAIL CURRENT
-        $email = "d@d.fr";//$session->get("_security.last_username");
+        $email = $session->get("loginAlex");//$session->get("_security.last_username");
+        $flagEmailExist = false;
                
         foreach ($listEmail as $value) {
             if ($email == $value["email"]) {
@@ -82,8 +87,10 @@ class DefaultController extends Controller
 
                 break;
             }
-            /*else
-                $session->clear();*/
+            else{
+                //$session->clear();
+                $flagEmailExist = true;
+            }
         }
 
         return $this->render('default/index.html.twig', [
@@ -92,8 +99,9 @@ class DefaultController extends Controller
             'users' => $users,
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
-            'id' => $id,
-            'nbTentatives' => $session->get("mailNbTentatives")[$email],
+            'id' => (int)$id[0]["id"],
+            'nbTentatives' => isset($session->get("mailNbTentatives")[$email]) ? $session->get("mailNbTentatives")[$email] : 3,
+            'affMess' => $flagEmailExist,
         ]);
     }
 
@@ -186,6 +194,17 @@ class DefaultController extends Controller
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+    }
+
+    /**
+     * @Route("/testJquery", name="testJquery")
+     */
+    public function testJquery(Request $request){
+        $login = $request->query->get('login');
+
+        $session = $request->getSession();
+        $session->set('loginAlex', $login);
+        die();
     }
 
     
