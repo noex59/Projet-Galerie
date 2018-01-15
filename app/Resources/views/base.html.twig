@@ -43,6 +43,8 @@
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         <script>
+            // Add le username entrer dans le formulaire a la session
+
             $('#submitForm').submit(function(e){
                 var login = $("#username").val();
                 $.ajax({
@@ -53,6 +55,26 @@
                   $( this ).addClass( "done" );
                 });
             })
+
+            // Affiche ou non la textbox url
+            $(document).ready(function(){
+                $('#url').show();
+                $('#file').hide();
+            })
+
+
+            $("#checkBox").click(function() {
+                if( $('#checkBox').is(':checked') ){
+                    $('#url').hide();
+                    $('#file').show();
+
+                } else {
+                    $('#url').show();
+                    $('#file').hide();
+                }
+            });
+
+            
         </script>
     </body>
 </html>

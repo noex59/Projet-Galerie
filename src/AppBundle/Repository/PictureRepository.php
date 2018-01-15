@@ -16,11 +16,23 @@ class PictureRepository extends EntityRepository
 	public function findByIdUser($id){
 		$qb = $this->createQueryBuilder('p');
 
-		$qb->select('p.url, p.idUser')
+		$qb->select('p.id, p.url, p.idUser, p.pos')
 		   ->where('p.pos != :null')
 		   ->andWhere('p.idUser = :id')
 		   ->orderby('p.pos', 'asc')
 		   ->setParameters(array('id' => $id, 'null' => "null"));
+
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByIdUserNULL($id){
+		$qb = $this->createQueryBuilder('p');
+
+		$qb->select('p.id, p.url, p.idUser, p.pos')
+		   ->where('p.idUser = :id')
+		   ->orderby('p.pos', 'asc')
+		   ->setParameters(array('id' => $id));
 
 
         return $qb->getQuery()->getResult();
@@ -36,4 +48,15 @@ class PictureRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /*public function findPictureById($id){
+		$qb = $this->createQueryBuilder('p');
+
+		$qb->select('*')
+		   ->where('p.id = :id')
+		   ->setParameters(array('id' => $id));
+
+
+        return $qb->getQuery()->getResult();
+    }*/
 }

@@ -14,21 +14,43 @@
             </div>
 
             <div class="col-lg-10">
+                {% if error != "" %}
+                    <h6 class="red">{{error}}</h6>
+                {% endif %}
                 <h2>Votre Galerie :</h2>
                 <div class="container">
                     <div class="row">
-                    
-                        <table class="pagination-centered">
-                            <tr>
-                            {% for obj in photos %}
-                                {% if loop.index0 % 4 == 0 %}
-                                    </tr>
-                                    <tr>
-                                {% endif %}
+                        <form action="{{path('create', {'idUser':id})}}" method="post">
+                            <input id="checkBox" type="checkbox" name="checked[]">
+                            <label for="checkBox">Ajouter une image importé</label>
+                            <input type="text" id="url" name="url" placeholder="Entrez un url">
+                            <input type="file" id="file" name="image" accept=".jpg, .jpeg, .png">
+                            <input type="text" class="little" id="pos" name="pos" placeholder="pos">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <input type="submit" id="ajout" name="ajout" value="Ajouter">
+                        </form>
 
-                                <td><img src="{{obj.url}}" alt="Not Available :(" height="150" width="150"></td>
-                            {% endfor %}
-                        </table>
+
+                    </div>
+                    <hr>
+                    </br>
+
+                    <div class="row">              
+                        {% for obj in photos %}
+                            <div class="col-4">
+                                <div class="col-12">
+                                    <img src="{{asset(obj.url)}}" alt="Not Available :(" height="150" width="150">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="col-xs-3" name="pos" value="{{photos[loop.index0].pos}}">
+                                </div>
+                                <div class="col-12 right">
+                                    <a href="{{ path('delete', {'id':photos[loop.index0].id, 'idUser':id}) }}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -39,6 +61,36 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+
+    h6.red{
+        color: red;
+        font-size: 15px;
+        float: center;
+        margin-right: 18px;
+    }
+
+    .little{
+        width: 60px;    
+    }
+
+    #url{
+        width: 75vw;
+    }
+
+    label{
+        width: 250px;
+    }
+
+    hr{
+        margin-top: 35px;
+        border-top: 6px solid black;
+    }
+
+    .glyphicon-trash{
+        color: black;
+        margin-bottom: 25px;
+        margin-left: 50px;
+    }
 
     .menu{
         background-color: #DCDCDC;
