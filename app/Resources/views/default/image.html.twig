@@ -20,7 +20,7 @@
                 <h2>Votre Galerie :</h2>
                 <div class="container">
                     <div class="row">
-                        <form action="{{path('create', {'idUser':id})}}" method="post">
+                        <form action="{{path('createPicture', {'idUser':id})}}" method="post">
                             <input id="checkBox" type="checkbox" name="checked[]">
                             <label for="checkBox">Ajouter une image importé</label>
                             <input type="text" id="url" name="url" placeholder="Entrez un url">
@@ -37,15 +37,15 @@
 
                     <div class="row">              
                         {% for obj in photos %}
-                            <div class="col-4">
-                                <div class="col-12">
+                            <div class="col-3">
+                                <div class="col-10">
                                     <img src="{{asset(obj.url)}}" alt="Not Available :(" height="150" width="150">
                                 </div>
-                                <div class="col-12">
-                                    <input type="text" class="col-xs-3" name="pos" value="{{photos[loop.index0].pos}}">
+                                <div class="col-5">
+                                    <input type="text" class="little" name="pos" value="{{photos[loop.index0].pos}}">
                                 </div>
-                                <div class="col-12 right">
-                                    <a href="{{ path('delete', {'id':photos[loop.index0].id, 'idUser':id}) }}">
+                                <div class="col-5">
+                                    <a href="{{ path('deletePicture', {'id':photos[loop.index0].id, 'idUser':id}) }}">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </div>
@@ -88,8 +88,6 @@
 
     .glyphicon-trash{
         color: black;
-        margin-bottom: 25px;
-        margin-left: 50px;
     }
 
     .menu{

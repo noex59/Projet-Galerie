@@ -42,13 +42,18 @@ class ImageController extends Controller
         $pictures = $em->getRepository("AppBundle:Picture")->findByIdUserNULL($idUser);
 
         $username = null;
-        $error = null;  
 
         if ($pictures != null) {
             foreach ($users as $val) {
                 if($val["id"] == $pictures[0]["idUser"])
                     $username = $val["username"];
             }
+        }
+        
+        $error = null;  
+
+        if (isset($_GET["flagErrorMessage"])) {
+            $error = "Veuillez rentrer un url ou importer un fichier svp";
         }
 
         return $this->render('default/image.html.twig', [
@@ -63,7 +68,7 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/mygalery/{idUser}/crt", name="create")
+     * @Route("/mygalery/{idUser}/crt", name="createPicture")
      */
     public function createPictureAction(Request $request)
     {
@@ -78,16 +83,14 @@ class ImageController extends Controller
             $em->persist($picture);
             $em->flush();
         }else{
-            $message = "Veuillez rentrer un url svp";
-
-            return $this->redirectToRoute("showGaleryPerso", array('idUser' => $_POST['id']));
+            return $this->redirectToRoute("showGaleryPerso", array('idUser' => $_POST['id'], 'flagErrorMessage' => true));
         }
 
         return $this->redirectToRoute("showGaleryPerso", array('idUser' => $_POST['id']));
     } 
 
     /**
-     * @Route("/mygalery/del/{id}/{idUser}", name="delete")
+     * @Route("/mygalery/del/{id}/{idUser}", name="deletePicture")
      */
     public function deletePictureAction(Request $request, $id, $idUser)
     {
@@ -101,7 +104,7 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/mygalery/upd/{id}/{pos}", name="update")
+     * @Route("/mygalery/upd/{id}/{pos}", name="updatePicture")
      */
     public function updatePosAction(Request $request, $id, $pos)
     {

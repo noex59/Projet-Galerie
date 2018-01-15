@@ -38,7 +38,7 @@ class AdminController extends Controller
         $user = $token->getUser();
 
         $user == "anon." ? $id = null : $id = $user->getId();
-
+        
         return $this->render('default/admin.html.twig', [
             'list' => $listUser,
             'id' => $id,
@@ -46,7 +46,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/del/{id}", name="delete")
+     * @Route("/admin/del/{id}", name="deleteUser")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -63,14 +63,13 @@ class AdminController extends Controller
 
         
         $em->remove($user);
-        
         $em->flush();
 
         return $this->redirectToRoute("admin");
     }
 
     /**
-     * @Route("/admin/upd/{id}", name="update")
+     * @Route("/admin/upd/{id}", name="updateUser")
      */
     public function updateAction(Request $request, $id)
     {

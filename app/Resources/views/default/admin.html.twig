@@ -16,9 +16,9 @@
                         <td>{{result.username}}</td>
                         <td>{{result.email}}</td>
                         <td>
-                            <a href="{{ path('delete',{'id': result.id}) }}" class='glyphicon glyphicon-trash'></a> 
+                            <a href="{{ path('deleteUser',{'id': result.id}) }}" class='glyphicon glyphicon-trash'></a> 
                             {% if result.enabled == 0 %}
-                                <a href="{{ path('update',{'id': result.id}) }}" class='glyphicon glyphicon-ok-circle'></a> 
+                                <a href="{{ path('updateUser',{'id': result.id}) }}" class='glyphicon glyphicon-ok-circle'></a> 
                             {% endif %}
                         </td>
                     </tr>

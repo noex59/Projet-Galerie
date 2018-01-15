@@ -32,16 +32,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-
-
         $csrfToken = $this->has('security.csrf.token_manager')
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
         $em = $this->getDoctrine()->getManager();
+        $list = $em->getRepository("AppBundle:Picture")->findAllIdAffichable();
+        $listId = array();
+        foreach ($list as $value) {
+            $listId[] = $value["idUser"];
+        }
         $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
-        $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser(1); // TODO : mettre num aleat
+        $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser($listId[array_rand($listId)]);
+
 
         $username = null;
 
@@ -63,6 +66,7 @@ class DefaultController extends Controller
         
         // RECUPERER EMAIL CURRENT
         $email = $session->get("loginAlex");//$session->get("_security.last_username");
+        $id = $em->getRepository('AppBundle:User')->findByMail($email);
         $flagEmailExist = false;
                
         foreach ($listEmail as $value) {
@@ -74,7 +78,7 @@ class DefaultController extends Controller
                 }
                 elseif ($session->get("mailNbTentatives")[$email] - 1 == 0 && isset($session->get("mailNbTentatives")[$email])) {
                     $session->set("mailNbTentatives", array($email => 0));
-                    $id = $em->getRepository('AppBundle:User')->findByMail($email);
+                    
                     $user = $em->getRepository('AppBundle:User')->find((int)$id[0]["id"]);
                     $user->setEnabled(0);
                     $em->flush();
@@ -99,7 +103,7 @@ class DefaultController extends Controller
             'users' => $users,
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
-            'id' => (int)$id[0]["id"],
+            'id' => $id != null ? (int)$id[0]["id"] : 1,
             'nbTentatives' => isset($session->get("mailNbTentatives")[$email]) ? $session->get("mailNbTentatives")[$email] : 3,
             'affMess' => $flagEmailExist,
         ]);
@@ -147,7 +151,7 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository("AppBundle:User")->findByNothingUserForMenu();
-        $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser($idUser); // TODO : mettre num aleat
+        $pictures = $em->getRepository("AppBundle:Picture")->findByIdUser($idUser);
 
         $username = null;
 
@@ -170,6 +174,8 @@ class DefaultController extends Controller
             'photos' => $pictures != null ? $pictures : "pas d'images enabled :(",
             'username' => $username != null ? $username : "",
             'id' => $id,
+            'nbTentatives' => 3,
+            'affMess' => false,
         ]);
     }
 

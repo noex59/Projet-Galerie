@@ -49,14 +49,15 @@ class PictureRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /*public function findPictureById($id){
+    public function findAllIdAffichable(){
 		$qb = $this->createQueryBuilder('p');
 
-		$qb->select('*')
-		   ->where('p.id = :id')
-		   ->setParameters(array('id' => $id));
+		$qb->select('p.idUser')
+		   ->where('p.pos != :null')
+		   ->distinct()
+		   ->setParameters(array('null' => "null"));
 
 
-        return $qb->getQuery()->getResult();
-    }*/
+        return $qb->getQuery()->getArrayResult();
+    }
 }
