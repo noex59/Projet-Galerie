@@ -10,6 +10,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <script  src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
     </head>
     <body>
         <ul>
@@ -60,6 +64,7 @@
             $(document).ready(function(){
                 $('#url').show();
                 $('#file').hide();
+                $("#dialog-confirm").dialog("close");
             })
 
 
@@ -73,6 +78,35 @@
                     $('#file').hide();
                 }
             });
+
+            // POPUP confirmation supression
+
+            $('.del').click(function(){
+                var c = confirm("Click OK to continue?");
+                return c;
+            });
+
+            /*$( function() {
+                $("#dialog-confirm").dialog({
+                  resizable: false,
+                  height: "auto",
+                  width: 400,
+                  modal: true,
+                  buttons: {
+                    "Delete": function() {
+                      $( this ).dialog( "close" );
+                    },
+                    Cancel: function() {
+                      $( this ).dialog( "close" );
+                    }
+                  }
+                });
+            });
+
+            $("#update").on("click", function(e) {
+                e.preventDefault();
+                $("#dialog-confirm").dialog("open");
+            });*/
 
             
         </script>

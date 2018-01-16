@@ -35,23 +35,50 @@
                     <hr>
                     </br>
 
-                    <div class="row">              
-                        {% for obj in photos %}
-                            <div class="col-3">
-                                <div class="col-10">
-                                    <img src="{{asset(obj.url)}}" alt="Not Available :(" height="150" width="150">
+                    <form action="{{path('updatePictures', {'id':id})}}" method="post">             
+                        <div class="row"> 
+                            {% for obj in photos %}
+                                <div class="col-3">
+                                    <div class="row"> 
+                                        <div class="col-10">
+                                            <input type="hidden" value="{{obj.id}}" name="id-{{obj.id}}">
+                                            <img src="{{asset(obj.url)}}" name="image-{{obj.id}}" alt="Not Available :(" height="150" width="150">
+                                        </div>
+                                        <div class="col-5">
+                                            <!--<input type="text" class="little" name="pos" value="{{photos[loop.index0].pos}}">-->
+                                            <select class="little" name="select-{{loop.index}}">
+                                                <option></option>
+                                                {% for i in range(1, 12) %}
+                                                    {% if photos[loop.parent.loop.index0].pos != i %}
+                                                        <option>{{i}}</option>
+                                                    {% else %}
+                                                        <option selected>{{i}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-5">
+                                            <a class="del" href="{{ path('deletePicture', {'id':photos[loop.index0].id, 'idUser':id}) }}">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-5">
-                                    <input type="text" class="little" name="pos" value="{{photos[loop.index0].pos}}">
-                                </div>
-                                <div class="col-5">
-                                    <a href="{{ path('deletePicture', {'id':photos[loop.index0].id, 'idUser':id}) }}">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                            {% endfor %}
+                            
+
+
+                            
+
+                        </div>
+                        <input type="submit" id="update" name="ajout" class="btn btn-primary" value="Valider">
+                    </form>
+                            <!--<div id="dialog-confirm" title="Empty the recycle bin?">
+                                <p>
+                                    <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+                                        Are you sure?
+                                </p>
+                            </div>-->
                 </div>
             </div>
         </div>
@@ -61,6 +88,13 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+
+    #update{
+        float: right;
+        position: relative;
+        margin-top: 35px;
+        height: 50px;
+    }
 
     h6.red{
         color: red;
@@ -88,6 +122,8 @@
 
     .glyphicon-trash{
         color: black;
+        margin-left: 3px;
+        padding: 8px;
     }
 
     .menu{

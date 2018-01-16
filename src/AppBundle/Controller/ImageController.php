@@ -104,16 +104,29 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/mygalery/upd/{id}/{pos}", name="updatePicture")
+     * @Route("/mygalery/upd/{id}", name="updatePictures")
      */
-    public function updatePosAction(Request $request, $id, $pos)
+    public function updatePosAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $picture = $em->getRepository('AppBundle:Picture')->find($id);
 
-        $picture->setPos($pos);
-        $em->flush();
+        //var_dump($_POST);die();
 
-        return $this->redirectToRoute("showGaleryPerso", array('idUser' => $idUser));
+        foreach ($_POST as $key => $value) {
+            if(explode("-", $key)[0] == "id"){
+                $picture = $em->getRepository('AppBundle:Picture')->find($value);
+            }
+            elseif(explode("-", $key)[0] == "select"){
+                $picture->setPos($value != null ? $value : null);
+            }
+            //var_dump($picture);die();
+
+
+            $em->flush();
+        }
+
+        //
+
+        return $this->redirectToRoute("showGaleryPerso", array('idUser' => $id));
     }  
 }
